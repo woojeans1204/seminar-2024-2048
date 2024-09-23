@@ -58,23 +58,27 @@ function Board() {
 
   useEffect(() => {
     const contains128 = () => {
-      return arr.some(row => row.includes(128));
+      return arr.some((row) => row.includes(128));
     };
 
     const checkEnd = () => {
-      if (contains128()) {setHas128(true); return true;}
-      return !arr.some(row => row.some(num => num === null));
+      if (contains128()) {
+        setHas128(true);
+        return true;
+      }
+      return !arr.some((row) => row.some((num) => num === null));
     };
 
-    const makeNewnumber = (t_arr : (number | null | undefined)[][]) => { // gpt 도움
+    const makeNewnumber = (t_arr: (number | null | undefined)[][]) => {
+      // gpt 도움
       const emptyCells: [number, number][] = [];
 
-      t_arr.forEach((row, i) =>
-        { row.forEach((num, j) => {
+      t_arr.forEach((row, i) => {
+        row.forEach((num, j) => {
           if (num === null) emptyCells.push([i, j]);
-        }); }
-      );
-      
+        });
+      });
+
       // 빈 칸 중 하나를 랜덤 선택
       const randomIndex = Math.floor(Math.random() * emptyCells.length);
       const randomCell = emptyCells[randomIndex];
@@ -84,7 +88,7 @@ function Board() {
       // 90% 확률로 2, 10% 확률로 4 생성
       const newValue = Math.random() < 0.9 ? 2 : 4;
       const newArr = t_arr.map((row, i) =>
-        row.map((num, j) => (i === randomI && j === randomJ ? newValue : num))
+        row.map((num, j) => (i === randomI && j === randomJ ? newValue : num)),
       );
       return newArr;
     };
@@ -188,12 +192,14 @@ function Board() {
   }, [arr]);
 
   return (
-    <div className= 'screen'>
-    <div className="board">
-      <Row values={arr[0]} /> <Row values={arr[1]} /> <Row values={arr[2]} />{' '}
-      <Row values={arr[3]} />
-    </div>
-      {isGameOver && <div className="gameover">{has128 ? "You Win!" : "Game Over"}</div>}
+    <div className="screen">
+      <div className="board">
+        <Row values={arr[0]} /> <Row values={arr[1]} /> <Row values={arr[2]} />{' '}
+        <Row values={arr[3]} />
+      </div>
+      {isGameOver && (
+        <div className="gameover">{has128 ? 'You Win!' : 'Game Over'}</div>
+      )}
     </div>
   );
 }
