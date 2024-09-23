@@ -25,6 +25,7 @@ function Row({ values }: RowProps) {
 }
 
 function Board() {
+  const [score, setScore] = useState(0);
   const i1 = Math.floor(Math.random() * 4);
   const j1 = Math.floor(Math.random() * 4);
   let it, jt;
@@ -95,7 +96,7 @@ function Board() {
 
     const move = (direction: 'left' | 'right' | 'up' | 'down') => {
       let newArr = arr.map((row) => [...row]); // 배열 복사
-
+      let addScore = 0;
       // 방향에 따라 배열 회전
       if (direction === 'right') {
         newArr = newArr.map((row) => row.reverse());
@@ -127,7 +128,10 @@ function Board() {
 
           // 병합 조건
           if (i + 1 < filteredRow.length && current === filteredRow[i + 1]) {
-            if (current !== undefined) mergedRow.push(current * 2);
+            if (current !== undefined) {
+              mergedRow.push(current * 2);
+              addScore = addScore + current * 2;
+            }
             skip = true;
           } else {
             if (current !== undefined) mergedRow.push(current);
@@ -141,6 +145,7 @@ function Board() {
 
         return mergedRow;
       });
+      setScore(score + addScore);
 
       // 다시 원래 방향으로 되돌리기
       if (direction === 'right') {
@@ -189,10 +194,11 @@ function Board() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [arr]);
+  }, [arr, score]);
 
   return (
     <div className="screen">
+      <div className="score">점수: {score}</div>
       <div className="board">
         <Row values={arr[0]} /> <Row values={arr[1]} /> <Row values={arr[2]} />{' '}
         <Row values={arr[3]} />
