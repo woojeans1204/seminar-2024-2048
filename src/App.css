@@ -23,7 +23,7 @@
 
 .gameover {
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: rgba(238, 228, 218, 0.8);
@@ -33,4 +33,15 @@
   color: #f00;
   border-radius: 10px;
   z-index: 10;
+}
+
+.score {
+  font-size: 24px; /* 폰트 크기 조정 */
+  font-weight: bold; /* 두께 조정 */
+  color: #333; /* 색상 조정 */
+  margin-bottom: 20px; /* 아래쪽 여백 추가 */
+  padding: 10px; /* 내부 여백 추가 */
+  background-color: rgba(255, 255, 255, 0.9); /* 배경색 추가 */
+  border: 2px solid #ccc; /* 테두리 추가 */
+  border-radius: 8px; /* 모서리 둥글게 */
 }
